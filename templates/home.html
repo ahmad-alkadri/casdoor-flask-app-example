@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Home</title>
+  <!-- Google Font for Modern Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body,
+    h1,
+    p,
+    button {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: #f7f9fc;
+      padding: 40px;
+      /* Some space from edges */
+      color: #333;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-weight: 700;
+      font-size: 2.5em;
+      /* Larger and bold for heading */
+    }
+
+    p {
+      margin-bottom: 20px;
+      font-size: 1.1em;
+      /* Slightly larger than default for readability */
+    }
+
+    .haiku {
+      background-color: #eef2f7;
+      /* A light blue background */
+      padding: 20px;
+      /* Space around haiku */
+      border-radius: 5px;
+      /* Rounded corners */
+      margin-bottom: 20px;
+      /* Space below haiku */
+      font-style: italic;
+      /* A touch of style to stand out */
+    }
+
+    button {
+      background-color: #007BFF;
+      color: #ffffff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content-container">
+    <h1>Welcome to Our Casdoor's Test Flask Web App!</h1>
+    <p>
+      Greetings! You've successfully logged in to our Casdoor test environment. Keep in mind, this environment provides
+      a glimpse into our login functionalities and might not showcase the entirety of our capabilities.
+    </p>
+    <div class="haiku">
+      A test page we meet,<br />
+      Web of codes, fun and discreet,<br />
+      Thanks for the quick greet.
+    </div>
+    <p>Feel free to roam around, discover, and let us know your feedback. Wishing you an insightful journey ahead!</p>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+
+  <script>
+    function logout() {
+      window.location.href = "/logout";
+    }
+  </script>
+</body>
+
+</html>

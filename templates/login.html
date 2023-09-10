@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Login</title>
+  <!-- Google Font for Modern Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Reset some default browser styles for a more consistent look */
+    body,
+    h2,
+    button {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background-color: #f7f9fc;
+      /* soft gray background */
+      display: flex;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+      /* centering content vertically */
+      color: #333;
+      /* dark gray text color */
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      /* spacing between the heading and the button */
+      font-weight: 700;
+    }
+
+    button {
+      background-color: #007BFF;
+      /* blue button background */
+      color: #ffffff;
+      /* white text color */
+      padding: 10px 20px;
+      /* top/bottom and left/right padding */
+      border: none;
+      /* removing the default border */
+      border-radius: 5px;
+      /* rounded edges */
+      cursor: pointer;
+      /* hand icon on hover */
+      font-size: 16px;
+      /* font size for button text */
+      transition: background-color 0.3s ease;
+      /* smooth color change transition */
+    }
+
+    button:hover {
+      background-color: #0056b3;
+      /* darker blue on hover */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <h2>Login with Casdoor</h2>
+    <button onclick="loginWithCasdoor()">Login</button>
+  </div>
+
+  <script>
+    function loginWithCasdoor() {
+      // Directly call backend endpoint to initiate login
+      window.location.href = "/login/redirect";
+    }
+  </script>
+</body>
+
+</html>
