@@ -1,76 +1,104 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
 
-<head>
-  <title>Login</title>
-  <!-- Google Font for Modern Typography -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    /* Reset some default browser styles for a more consistent look */
-    body,
-    h2,
-    button {
-      margin: 0;
-      padding: 0;
-      font-family: 'Roboto', sans-serif;
-    }
+      .container {
+        max-width: 500px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
 
-    body {
-      background-color: #f7f9fc;
-      /* soft gray background */
-      display: flex;
-      height: 100vh;
-      justify-content: center;
-      align-items: center;
-      /* centering content vertically */
-      color: #333;
-      /* dark gray text color */
-    }
+      h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
 
-    h2 {
-      margin-bottom: 20px;
-      /* spacing between the heading and the button */
-      font-weight: 700;
-    }
+      .form-group {
+        margin-bottom: 15px;
+      }
 
-    button {
-      background-color: #007BFF;
-      /* blue button background */
-      color: #ffffff;
-      /* white text color */
-      padding: 10px 20px;
-      /* top/bottom and left/right padding */
-      border: none;
-      /* removing the default border */
-      border-radius: 5px;
-      /* rounded edges */
-      cursor: pointer;
-      /* hand icon on hover */
-      font-size: 16px;
-      /* font size for button text */
-      transition: background-color 0.3s ease;
-      /* smooth color change transition */
-    }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
 
-    button:hover {
-      background-color: #0056b3;
-      /* darker blue on hover */
-    }
-  </style>
-</head>
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        /* padding-top: 10px;
+        padding-bottom: 10px; */
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
 
-<body>
-  <div class="login-container">
-    <h2>Login with Casdoor</h2>
-    <button onclick="loginWithCasdoor()">Login</button>
-  </div>
+      button {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
 
-  <script>
-    function loginWithCasdoor() {
-      // Directly call backend endpoint to initiate login
-      window.location.href = "/login/redirect";
-    }
-  </script>
-</body>
+      button:hover {
+        background-color: #0056b3;
+      }
 
+      .alert {
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+      }
+
+      .alert-success {
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+        color: #155724;
+      }
+
+      .alert-danger {
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        color: #721c24;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Login</h2>
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %}
+
+      <form action="{{ url_for('login') }}" method="post">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" name="username" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" name="password" required />
+        </div>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </body>
 </html>

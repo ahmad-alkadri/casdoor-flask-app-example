@@ -5,6 +5,7 @@ from flask import (
     url_for,
     session,
     request,
+    flash,
 )
 from casdoor import CasdoorSDK
 import os
@@ -39,15 +40,41 @@ sdk = CasdoorSDK(**authCfg)
 
 
 def isAuthenticated():
+    flash(
+        "You're not authorized to access that page. Please login first.",
+        "danger",
+    )
     return "authenticated" in session and session["authenticated"]
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    if isAuthenticated():
-        return redirect(url_for("index"))
-    else:
-        return render_template("login.html")
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+        token = sdk.get_oauth_token(username=username, password=password)
+        access_token = token.get("access_token")
+        if access_token:
+            user = sdk.parse_jwt_token(access_token)
+            if user:
+                session["token"] = access_token
+                session["user"] = user
+                session["authenticated"] = True
+                session["permanent"] = True
+                flash("Successfully logged in!", "success")
+                return redirect(url_for("index"))
+            else:
+                flash(
+                    "Login unsuccessful. Please check your username and password.",
+                    "danger",
+                )
+                return redirect(url_for("login"))
+        else:
+            flash(
+                "Login unsuccessful. Please check your username and password.", "danger"
+            )
+            return redirect(url_for("login"))
+    return render_template("login.html")
 
 
 @app.route("/")
@@ -95,25 +122,6 @@ def profile():
         return render_template("profile.html", user=user_info)
     else:
         return redirect(url_for("login"))
-
-
-@app.route("/callback")
-def callback():
-    if isAuthenticated():
-        return redirect(url_for("index"))
-    else:
-        code = request.args.get("code")
-        token = sdk.get_oauth_token(code=code)
-        access_token = token.get("access_token")
-        user = sdk.parse_jwt_token(access_token)
-        if user:
-            session["token"] = access_token
-            session["user"] = user
-            session["authenticated"] = True
-            session["permanent"] = True
-            return redirect(url_for("index"))
-        else:
-            return redirect(url_for("login"))
 
 
 @app.route("/<path:path>")
